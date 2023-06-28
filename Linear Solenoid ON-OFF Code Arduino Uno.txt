@@ -1,0 +1,53 @@
+int relay_signal = 5;
+
+int count = 0;
+
+int relay_state = LOW;
+
+void setup(){
+
+Seriel.begin(9600);
+
+pinMode(relay_signal, OUTPUT); 
+
+digitalWrite(relay_signal, LOW); 
+
+}
+
+void loop(){
+
+for(count=0; count<5000; count = count+1)
+
+{
+if (relay_state != LOW)
+{
+relay_state = LOW;
+
+digitalWrite(relay_signal, LOW);
+
+delay(100);
+}
+
+digitalWrite(relay_signal, HIGH);
+
+if (digitalRead(relay_signal) == HIGH)
+{
+relay_state = HIGH;
+}
+
+delay(4000); // 4 seconds delay
+
+digitalWrtie(relay_signal, LOW);
+
+if (digitalRead(relay_signal) == LOW)
+{
+relay_state = LOW;
+}
+
+delay(4000); // 4 seconds delay
+
+Seriel.println(count);
+}
+
+exit(0);
+}
